@@ -34,6 +34,7 @@ class _GamePageState extends State<GamePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          _buildPlayerTime(),
           _buildBoard(),
           _buildPlayerMode(),
           _buildResetButton(),
@@ -47,6 +48,22 @@ class _GamePageState extends State<GamePage> {
       padding: const EdgeInsets.all(20),
       child: Text(RESET_BUTTON_LABEL),
       onPressed: _onResetGame,
+    );
+  }
+
+  _buildPlayerTime() {
+    var player = _controller.currentPlayer;
+    return Container(
+      color: Theme.of(context).accentColor.withOpacity(0.2),
+      padding: const EdgeInsets.all(10),
+      height: 50,
+      child: Text(
+        GameController().timePlayer(_controller),
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 

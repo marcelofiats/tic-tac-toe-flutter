@@ -33,6 +33,13 @@ class GameController {
     _initialize();
   }
 
+  String timePlayer(_controller) {
+    if (_controller.currentPlayer == PlayerType.player1)
+      return "Player 1";
+    else
+      return "Player 2";
+  }
+
   void markBoardTileByIndex(index) {
     final tile = tiles[index];
     if (currentPlayer == PlayerType.player1) {
