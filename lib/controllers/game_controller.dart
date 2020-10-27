@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:tictactoe/core/constants.dart';
 import 'package:tictactoe/core/winner_rules.dart';
 import 'package:tictactoe/enums/player_type.dart';
@@ -11,6 +10,8 @@ class GameController {
   List<int> movesPlayer1 = [];
   List<int> movesPlayer2 = [];
   PlayerType currentPlayer;
+  int Player1Wins = 0;
+  int Player2Wins = 0;
   bool isSinglePlayer;
 
   bool get hasMoves =>
@@ -33,8 +34,8 @@ class GameController {
     _initialize();
   }
 
-  String timePlayer(_controller) {
-    if (_controller.currentPlayer == PlayerType.player1)
+  String timePlayer(controller) {
+    if (controller.currentPlayer == PlayerType.player1)
       return "Player 1";
     else
       return "Player 2";
@@ -73,8 +74,14 @@ class GameController {
   }
 
   WinnerType checkWinner() {
-    if (_checkPlayerWinner(movesPlayer1)) return WinnerType.player1;
-    if (_checkPlayerWinner(movesPlayer2)) return WinnerType.player2;
+    if (_checkPlayerWinner(movesPlayer1)) {
+      Player1Wins++;
+      return WinnerType.player1;
+    }
+    if (_checkPlayerWinner(movesPlayer2)) {
+      Player2Wins++;
+      return WinnerType.player2;
+    }
     return WinnerType.none;
   }
 
@@ -86,5 +93,10 @@ class GameController {
     var random = new Random();
     var index = random.nextInt(list.length - 1);
     return tiles.indexWhere((tile) => tile.id == list[index]);
+  }
+
+  void resetScoreboar() {
+    Player1Wins = 0;
+    Player2Wins = 0;
   }
 }

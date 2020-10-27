@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tictactoe/controllers/game_controller.dart';
 import 'package:tictactoe/core/constants.dart';
 import 'package:tictactoe/enums/player_type.dart';
@@ -36,6 +37,9 @@ class _GamePageState extends State<GamePage> {
         children: [
           _buildPlayerTime(),
           _buildBoard(),
+          _buildScoreboard('Player 1', PLAYER1_COLOR, _controller.Player1Wins),
+          _buildScoreboard('Player 2', PLAYER2_COLOR, _controller.Player2Wins),
+          _buildResetScoreboardButton(),
           _buildPlayerMode(),
           _buildResetButton(),
         ],
@@ -52,7 +56,6 @@ class _GamePageState extends State<GamePage> {
   }
 
   _buildPlayerTime() {
-    var player = _controller.currentPlayer;
     return Container(
       color: Theme.of(context).accentColor.withOpacity(0.2),
       padding: const EdgeInsets.all(10),
@@ -64,6 +67,33 @@ class _GamePageState extends State<GamePage> {
           fontWeight: FontWeight.bold,
         ),
       ),
+    );
+  }
+
+  _buildScoreboard(String label, Color player, var controller) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 80.0),
+      padding: const EdgeInsets.all(5),
+      width: 200.0,
+      height: 40,
+      decoration: BoxDecoration(
+        color: player,
+        border: Border.all(),
+      ),
+      child: Text(
+        label + "  " + controller.toString(),
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+    );
+  }
+
+  _buildResetScoreboardButton() {
+    return RaisedButton(
+      padding: const EdgeInsets.all(20),
+      child: Text(RESET_BUTTON_SCORE),
+      onPressed: _onResetScore,
     );
   }
 
@@ -103,6 +133,12 @@ class _GamePageState extends State<GamePage> {
   _onResetGame() {
     setState(() {
       _controller.reset();
+    });
+  }
+
+  _onResetScore() {
+    setState(() {
+      _controller.resetScoreboar();
     });
   }
 
