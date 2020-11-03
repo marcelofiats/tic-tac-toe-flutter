@@ -123,6 +123,7 @@ class _GamePageState extends State<GamePage> {
             style: TextStyle(
               fontSize: 72.0,
               color: Colors.white,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
