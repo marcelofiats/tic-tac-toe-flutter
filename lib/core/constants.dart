@@ -5,11 +5,11 @@ const int BOARD_SIZE = 9;
 const Color PLAYER1_COLOR = Colors.red;
 const Color PLAYER2_COLOR = Colors.blue;
 
-//const Image PLAYER1_SYMBOL = Image(image: AssetImage('imagens/velha1.png'));
-//const Image PLAYER2_SYMBOL = Image(image: AssetImage('imagens/velha2.png'));
+const String PLAYER1_SYMBOL = "imagens/velha1.png";
+const String PLAYER2_SYMBOL = "imagens/velha2.png";
 
-const String PLAYER1_SYMBOL = 'X';
-const String PLAYER2_SYMBOL = 'O';
+//const String PLAYER1_SYMBOL = 'X';
+//const String PLAYER2_SYMBOL = 'O';
 
 const String GAME_TITLE = 'Tic Tac Toe';
 const String TIED_TITLE = 'Game Tied!';

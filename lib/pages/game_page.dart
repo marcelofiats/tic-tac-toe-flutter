@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:tictactoe/controllers/game_controller.dart';
 import 'package:tictactoe/core/constants.dart';
 import 'package:tictactoe/enums/player_type.dart';
 import 'package:tictactoe/enums/winner_type.dart';
 import 'package:tictactoe/widgets/custom_dialog.dart';
+import 'package:wc_flutter_share/wc_flutter_share.dart';
 
 class GamePage extends StatefulWidget {
   @override
@@ -26,6 +29,12 @@ class _GamePageState extends State<GamePage> {
     return AppBar(
       title: Text(GAME_TITLE),
       centerTitle: true,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.share),
+          onPressed: () => _share,
+        ),
+      ],
     );
   }
 
@@ -117,15 +126,9 @@ class _GamePageState extends State<GamePage> {
       onTap: () => _onMarkTile(index),
       child: Container(
         color: _controller.tiles[index].color,
-        child: Center(
-          child: Text(
-            _controller.tiles[index].symbol,
-            style: TextStyle(
-              fontSize: 72.0,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        child: Image.asset(
+          _controller.tiles[index].symbol,
+          fit: BoxFit.scaleDown,
         ),
       ),
     );
@@ -164,8 +167,7 @@ class _GamePageState extends State<GamePage> {
         _onMarkTile(index);
       }
     } else {
-      String symbol =
-          winner == WinnerType.player1 ? PLAYER1_SYMBOL : PLAYER2_SYMBOL;
+      String symbol = winner == WinnerType.player1 ? '1' : '2';
       _showWinnerDialog(symbol);
     }
   }
@@ -209,5 +211,16 @@ class _GamePageState extends State<GamePage> {
         });
       },
     );
+  }
+
+  _share() async {
+    final ByteData bytes = await rootBundle.load('assets/wisecrab.png');
+    WcFlutterShare.share(
+        sharePopupTitle: 'share',
+        subject: 'This is subject',
+        text: 'This is text',
+        fileName: 'share.png',
+        mimeType: 'image/png',
+        bytesOfFile: bytes.buffer.asUint8List());
   }
 }
